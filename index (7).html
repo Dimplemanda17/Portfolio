@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dimple Manda — Program Manager Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14213D;
+    --paper:#F6F4EF;
+    --card:#FFFFFF;
+    --brass:#A6813C;
+    --teal:#2E6B6B;
+    --teal-bg:#E4EEEE;
+    --sage:#5C7A54;
+    --sage-bg:#EAF0E6;
+    --slate:#5C6370;
+    --line:#DDD8CC;
+    --success:#3F6C51;
+    --success-bg:#E7EFE9;
+    --clay:#B5533C;
+    --max:1080px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--brass);
+    font-weight:600;
+  }
+
+  /* NAV */
+  header.site{
+    position:sticky; top:0; z-index:20;
+    background:rgba(246,244,239,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  header.site nav{
+    max-width:var(--max); margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  header.site .logo{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600; font-size:14px; letter-spacing:.04em;
+  }
+  header.site .navlinks{display:flex; gap:28px; font-size:14px;}
+  header.site .navlinks a{text-decoration:none; color:var(--slate); transition:color .15s;}
+  header.site .navlinks a:hover, header.site .navlinks a:focus-visible{color:var(--ink);}
+
+  /* HERO */
+  .hero{
+    padding:88px 0 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-140px; right:-160px;
+    width:420px; height:420px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, rgba(166,129,60,.20), rgba(166,129,60,0) 70%);
+    z-index:0;
+    pointer-events:none;
+    animation:blobDrift1 14s ease-in-out infinite;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    bottom:-160px; left:-120px;
+    width:360px; height:360px;
+    border-radius:50%;
+    background:radial-gradient(circle at 40% 40%, rgba(46,107,107,.14), rgba(46,107,107,0) 70%);
+    z-index:0;
+    pointer-events:none;
+    animation:blobDrift2 18s ease-in-out infinite;
+  }
+  @keyframes blobDrift1{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(-24px,18px) scale(1.06);}
+  }
+  @keyframes blobDrift2{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(20px,-16px) scale(1.08);}
+  }
+  .hero-top{
+    position:relative; z-index:1;
+    display:flex; align-items:flex-start; justify-content:space-between; gap:32px;
+  }
+  .hero-copy{flex:1; min-width:0;}
+  .avatar{
+    flex-shrink:0;
+    width:112px; height:112px;
+    border-radius:50%;
+    object-fit:cover;
+    object-position:center 15%;
+    border:3px solid var(--brass);
+    box-shadow:0 6px 18px rgba(20,33,61,.18);
+    animation:avatarIn .7s ease .1s both, avatarFloat 5s ease-in-out 1s infinite;
+  }
+  @keyframes avatarIn{
+    from{opacity:0; transform:scale(.85) translateY(-6px);}
+    to{opacity:1; transform:scale(1) translateY(0);}
+  }
+  @keyframes avatarFloat{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-7px);}
+  }
+  .hero h1{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:clamp(40px,7vw,68px);
+    line-height:1.02;
+    margin:14px 0 18px;
+    letter-spacing:-.01em;
+  }
+  .hero .sub{
+    max-width:560px;
+    font-size:18px;
+    color:var(--slate);
+    margin:0 0 40px;
+  }
+
+  .hero-copy .eyebrow{animation:heroUp .6s ease .05s both;}
+  .hero h1{animation:heroUp .6s ease .15s both;}
+  .hero .sub{animation:heroUp .6s ease .25s both;}
+  @keyframes heroUp{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .phase .dot{transition:transform .2s ease;}
+  .phase:hover .dot{transform:scale(1.3);}
+
+  /* STATUS CONSOLE — signature element */
+  .console{
+    position:relative; z-index:1;
+    background:var(--ink);
+    color:#F6F4EF;
+    border-radius:10px;
+    padding:22px 24px 20px;
+    overflow-x:auto;
+    animation:heroUp .6s ease .35s both;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .console:hover{transform:translateY(-3px); box-shadow:0 14px 28px rgba(20,33,61,.22);}
+  .console-top{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:18px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#B9C0CE;
+  }
+  .console-top .status-chip{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--success-bg);
+    color:var(--success);
+    padding:4px 10px;
+    border-radius:20px;
+    font-weight:600;
+  }
+  .console-top .status-chip::before{
+    content:"";
+    width:6px;height:6px;border-radius:50%;
+    background:var(--success);
+    display:inline-block;
+    animation:dotPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes dotPulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(63,108,81,.5);}
+    50%{box-shadow:0 0 0 4px rgba(63,108,81,0);}
+  }
+  .phases{
+    display:flex; align-items:center; min-width:640px;
+  }
+  .phase{
+    display:flex; flex-direction:column; align-items:center;
+    flex:1; position:relative; padding:0 4px;
+  }
+  .phase .dot{
+    width:16px;height:16px;border-radius:50%;
+    border:2px solid #4B5A78;
+    background:#1E2C4C;
+    display:flex; align-items:center; justify-content:center;
+    z-index:2;
+  }
+  .phase.done .dot{background:var(--brass); border-color:var(--brass);}
+  .phase.current .dot{background:#F6F4EF; border-color:#F6F4EF;}
+  .phase .label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.04em;
+    color:#9AA4B8;
+    margin-top:9px;
+    text-align:center;
+    text-transform:uppercase;
+  }
+  .phase.done .label, .phase.current .label{color:#F6F4EF;}
+  .phase::before{
+    content:"";
+    position:absolute; top:7px; left:-50%; width:100%; height:2px;
+    background:#3A4763; z-index:1;
+  }
+  .phase:first-child::before{display:none;}
+  .phase.done::before{background:var(--brass);}
+
+  /* SECTIONS */
+  section{padding:64px 0;}
+  section.tight{padding:40px 0;}
+  h2{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:30px;
+    margin:0 0 8px;
+  }
+  .section-intro{color:var(--slate); max-width:600px; margin:0 0 32px;}
+  hr.rule{border:none; border-top:1px solid var(--line); margin:0;}
+
+  /* ABOUT */
+  .about-grid{
+    display:grid; grid-template-columns:1.3fr 1fr; gap:48px; align-items:start;
+  }
+  .about-grid p{color:var(--ink); font-size:16px;}
+  .facts{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px;}
+  .facts li{
+    font-size:14px; color:var(--slate);
+    padding-left:16px; border-left:2px solid var(--brass);
+  }
+  .facts b{color:var(--ink); display:block; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.05em; text-transform:uppercase; margin-bottom:2px;}
+
+  /* SKILLS */
+  .tags{display:flex; flex-wrap:wrap; gap:10px;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:3px solid var(--brass);
+    padding:8px 14px;
+    border-radius:6px;
+    color:var(--ink);
+  }
+  .tag:nth-child(3n+2){border-left-color:var(--teal);}
+  .tag:nth-child(3n+3){border-left-color:var(--sage);}
+  .tag-link{
+    cursor:pointer;
+    transition:background .15s, transform .15s, box-shadow .15s;
+  }
+  .tag-link::after{
+    content:" →";
+    opacity:.5;
+  }
+  .tag-link:hover, .tag-link:focus-visible{
+    background:var(--ink);
+    color:#F6F4EF;
+    transform:translateY(-1px);
+    box-shadow:0 3px 10px rgba(20,33,61,.18);
+  }
+  @keyframes cardPulse{
+    0%{box-shadow:0 0 0 0 var(--accent, var(--brass));}
+    70%{box-shadow:0 0 0 10px rgba(166,129,60,0);}
+    100%{box-shadow:0 0 0 0 rgba(166,129,60,0);}
+  }
+  .project-card.highlight{
+    animation:cardPulse 1s ease-out 2;
+    border-color:var(--accent);
+  }
+
+  /* PROJECT CARD */
+  .project-card{
+    --accent:var(--brass);
+    background:var(--card);
+    border:1px solid var(--line);
+    border-top:4px solid var(--accent);
+    border-radius:12px;
+    overflow:hidden;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .project-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 16px 32px rgba(20,33,61,.12);
+  }
+  .project-card + .project-card{margin-top:24px;}
+
+  /* PROJECT CAROUSEL */
+  .project-media{
+    position:relative;
+    height:150px;
+    background:linear-gradient(135deg, var(--accent), var(--ink));
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .project-media .slide{
+    position:absolute;
+    inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    color:#F6F4EF;
+    opacity:0;
+    transition:opacity .4s ease;
+    pointer-events:none;
+  }
+  .project-media .slide.active{opacity:1; pointer-events:auto;}
+  .slide-icon{width:46px; height:46px; color:#F6F4EF;}
+  .slide-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px; letter-spacing:.05em; text-transform:uppercase;
+    color:#F6F4EF; opacity:.9;
+  }
+  .car-btn{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:rgba(20,33,61,.35);
+    border:none; color:#F6F4EF;
+    width:28px; height:28px; border-radius:50%;
+    font-size:18px; line-height:1;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    z-index:2;
+    transition:background .15s;
+  }
+  .car-btn:hover{background:rgba(20,33,61,.6);}
+  .car-prev{left:12px;}
+  .car-next{right:12px;}
+  .car-dots{
+    position:absolute; bottom:10px; left:0; right:0;
+    display:flex; justify-content:center; gap:6px;
+    z-index:2;
+  }
+  .car-dots .dot{
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(246,244,239,.4);
+    cursor:pointer;
+    transition:background .15s;
+  }
+  .car-dots .dot.active{background:#F6F4EF;}
+  .project-head{
+    padding:32px 32px 0;
+  }
+  .project-head .tagrow{display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;}
+  .project-head .tagrow span{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--accent); border:1px solid var(--accent); border-radius:20px;
+    padding:3px 10px;
+  }
+  .project-head h3{
+    font-family:'Fraunces',serif;
+    font-size:26px; font-weight:600; margin:0 0 10px;
+  }
+  .project-head p{color:var(--slate); max-width:640px; margin:0 0 28px;}
+
+  .stats{
+    display:grid; grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--line);
+  }
+  .stat{
+    padding:22px 24px;
+    border-right:1px solid var(--line);
+  }
+  .stat:last-child{border-right:none;}
+  .stat .num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:26px; font-weight:600; color:var(--accent);
+  }
+  .stat .cap{font-size:12.5px; color:var(--slate); margin-top:4px;}
+
+  .project-foot{
+    padding:24px 32px 32px;
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+    border-top:1px solid var(--line);
+  }
+  .btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px; letter-spacing:.03em;
+    text-decoration:none;
+    padding:11px 20px;
+    border-radius:6px;
+    display:inline-block;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .btn-primary{background:var(--ink); color:#F6F4EF;}
+  .btn-primary:hover{background:#0D1730; transform:translateY(-2px); box-shadow:0 8px 18px rgba(20,33,61,.25);}
+  .btn-ghost{border:1px solid var(--line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--brass); color:var(--brass); transform:translateY(-2px);}
+
+  /* MORE PROJECTS PLACEHOLDER */
+  .more-card{
+    border:1px dashed var(--line);
+    border-radius:12px;
+    padding:32px;
+    color:var(--slate);
+    font-size:14px;
+    margin-top:20px;
+  }
+
+  /* CONTACT */
+  footer{
+    padding:56px 0 64px;
+    border-top:1px solid var(--line);
+  }
+  footer h2{margin-bottom:14px;}
+  .contact-links{display:flex; gap:24px; flex-wrap:wrap; margin-top:18px;}
+  .contact-links a{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:14px;
+    text-decoration:none;
+    border-bottom:1px solid var(--brass);
+    padding-bottom:2px;
+  }
+  .foot-note{margin-top:40px; font-size:12.5px; color:var(--slate);}
+
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr;}
+    .stats{grid-template-columns:1fr;}
+    .stat{border-right:none; border-bottom:1px solid var(--line);}
+    header.site .navlinks{gap:16px; font-size:13px;}
+  }
+
+  /* SCROLL REVEAL */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1);
+  }
+  .reveal.visible{opacity:1; transform:translateY(0);}
+  .reveal-stagger .tag{
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .45s ease, transform .45s ease, background .15s, transform .15s;
+  }
+  .reveal-stagger.visible .tag{opacity:1; transform:translateY(0);}
+
+  .stat{transition:background .2s ease;}
+  .stat:hover{background:var(--paper);}
+  .stat .num{transition:transform .2s ease;}
+  .stat:hover .num{transform:scale(1.06);}
+
+  .console-top .status-chip{transition:transform .2s ease;}
+  .console:hover .status-chip{transform:scale(1.05);}
+
+  .navlinks a{position:relative;}
+  .navlinks a::after{
+    content:"";
+    position:absolute; left:0; bottom:-4px;
+    width:0; height:1.5px;
+    background:var(--brass);
+    transition:width .2s ease;
+  }
+  .navlinks a:hover::after{width:100%;}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .reveal, .reveal-stagger .tag{opacity:1; transform:none; transition:none;}
+    .hero::before, .hero::after, .avatar{animation:none;}
+    .project-card:hover, .btn:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav>
+    <div class="logo">DIMPLE MANDA</div>
+    <div class="navlinks">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="hero-top">
+      <div class="hero-copy">
+        <h1>Dimple Manda</h1>
+        <p class="sub">Program Manager turning operational complexity into working systems — IT rollouts, retail operations, and the cross-functional teams that make them happen. Based in Dallas, TX — open to relocation.</p>
+      </div>
+      <img class="avatar" src="profile.jpg" alt="Dimple Manda">
+    </div>
+
+    <div class="console">
+      <div class="console-top">
+        <span>Featured Program — POS &amp; Inventory Migration</span>
+        <span class="status-chip">Complete</span>
+      </div>
+      <div class="phases">
+        <div class="phase done"><div class="dot"></div><div class="label">Charter</div></div>
+        <div class="phase done"><div class="dot"></div><div class="label">Stakeholders</div></div>
+        <div class="phase done"><div class="dot"></div><div class="label">RAID Log</div></div>
+        <div class="phase done"><div class="dot"></div><div class="label">Budget</div></div>
+        <div class="phase done"><div class="dot"></div><div class="label">Comms Plan</div></div>
+        <div class="phase done"><div class="dot"></div><div class="label">Go-Live</div></div>
+        <div class="phase current"><div class="dot"></div><div class="label">Review</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="tight">
+    <hr class="rule">
+  </section>
+
+  <section id="about">
+    <div class="about-grid reveal">
+      <div>
+        <div class="eyebrow">About</div>
+        <h2>Background</h2>
+        <p>I recently completed a degree in Information Technology &amp; Management and bring two years of hands-on experience in retail operations, where I've worked closely with systems, staff, and store-level execution. I'm now focused on program and project management roles where I can apply that operational grounding to run technology and process initiatives end-to-end — from charter to post-launch review.</p>
+        <p>I'm especially drawn to programs that sit at the intersection of technology and people: system rollouts, process redesigns, and cross-functional launches where clear planning and steady communication make the difference between a rocky rollout and a smooth one.</p>
+      </div>
+      <ul class="facts">
+        <li><b>Education</b>M.S. Information Technology &amp; Management, University of Texas at Dallas, 2023</li>
+        <li><b>Experience</b>Retail Operations — Govindjis, since April 2024</li>
+        <li><b>Focus areas</b>IT rollouts, retail operations, process improvement</li>
+        <li><b>Based in</b>Dallas, Texas — open to relocation</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="skills" class="tight">
+    <hr class="rule">
+  </section>
+
+  <section id="skills">
+    <div class="eyebrow">Toolkit</div>
+    <h2>Skills</h2>
+    <p class="section-intro">The core program management discipline I apply on every initiative, regardless of domain.</p>
+    <div class="tags reveal-stagger">
+      <span class="tag">Project Chartering</span>
+      <span class="tag">Stakeholder Management</span>
+      <span class="tag">RAID Log &amp; Risk Management</span>
+      <span class="tag">Budget Planning</span>
+      <span class="tag tag-link" data-target="project-pos">Vendor Coordination</span>
+      <span class="tag tag-link" data-target="project-onboarding">Change Management</span>
+      <span class="tag">Cross-Functional Communication</span>
+      <span class="tag tag-link" data-target="project-dashboard">Process Improvement</span>
+      <span class="tag">Agile &amp; Scrum Fundamentals</span>
+      <span class="tag tag-link" data-target="project-dashboard">KPI &amp; Performance Tracking</span>
+      <span class="tag">Resource Allocation</span>
+      <span class="tag">Meeting Facilitation</span>
+      <span class="tag tag-link" data-target="project-dashboard">Data-Driven Decision Making</span>
+      <span class="tag tag-link" data-target="project-dashboard">Excel &amp; Power BI</span>
+      <span class="tag">Jira / Asana / Trello</span>
+      <span class="tag">Conflict Resolution</span>
+      <span class="tag tag-link" data-target="project-dashboard">Documentation &amp; Reporting</span>
+      <span class="tag">Timeline &amp; Milestone Planning</span>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="eyebrow">Selected Work</div>
+    <h2>Featured Projects</h2>
+    <p class="section-intro">Program case studies — from charter through post-launch review — spanning retail technology rollouts and digital launches.</p>
+
+    <div class="project-card reveal" id="project-pos">
+      <div class="project-media">
+        <div class="slide active">
+          <svg viewBox="0 0 64 64" class="slide-icon"><rect x="10" y="18" width="44" height="30" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="16" y="24" width="32" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="22" cy="41" r="2.5" fill="currentColor"/><circle cx="32" cy="41" r="2.5" fill="currentColor"/><circle cx="42" cy="41" r="2.5" fill="currentColor"/><line x1="10" y1="52" x2="54" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <div class="slide-label">Legacy POS &amp; Inventory</div>
+        </div>
+        <div class="slide">
+          <svg viewBox="0 0 64 64" class="slide-icon"><path d="M46 22a16 16 0 1 0 4 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M46 12v10h-10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="slide-label">Real-Time Inventory Sync</div>
+        </div>
+        <div class="slide">
+          <svg viewBox="0 0 64 64" class="slide-icon"><rect x="14" y="10" width="36" height="44" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M22 26l5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="22" y1="41" x2="42" y2="41" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <div class="slide-label">Go-Live Checklist</div>
+        </div>
+        <button class="car-btn car-prev" aria-label="Previous">‹</button>
+        <button class="car-btn car-next" aria-label="Next">›</button>
+        <div class="car-dots">
+          <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      </div>
+      <div class="project-head">
+        <div class="tagrow">
+          <span>IT Rollout</span>
+          <span>Retail Operations</span>
+          <span>Case Study</span>
+        </div>
+        <h3>POS &amp; Inventory System Migration</h3>
+        <p>End-to-end program plan for migrating a retail jewelry store's legacy point-of-sale and inventory system to a modern, cloud-based retail management platform — covering project charter, stakeholder mapping, risk management, budget, communications, and post-launch review.</p>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="num">99.7%</div>
+          <div class="cap">Inventory migration accuracy on first reconciliation</div>
+        </div>
+        <div class="stat">
+          <div class="num">3.5 hrs</div>
+          <div class="cap">Cutover downtime, ahead of a 4-hour target</div>
+        </div>
+        <div class="stat">
+          <div class="num">80%</div>
+          <div class="cap">Reduction in weekly manual reconciliation time</div>
+        </div>
+      </div>
+      <div class="project-foot">
+        <a class="btn btn-primary" href="POS_Inventory_Migration_Case_Study.docx">Download Full Case Study</a>
+        <a class="btn btn-ghost" href="mailto:mandadimple17@gmail.com?subject=Let's%20discuss%20your%20project">Discuss this project</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal" id="project-ecommerce" style="--accent:var(--teal)">
+      <div class="project-media">
+        <div class="slide active">
+          <svg viewBox="0 0 64 64" class="slide-icon"><circle cx="32" cy="32" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12 32h40M32 12a28 28 0 0 1 0 40M32 12a28 28 0 0 0 0 40" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="slide-label">Online Storefront</div>
+        </div>
+        <div class="slide">
+          <svg viewBox="0 0 64 64" class="slide-icon"><path d="M14 24l4-10h28l4 10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><rect x="12" y="24" width="40" height="26" rx="2" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M24 24v6a8 8 0 0 0 16 0v-6" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
+          <div class="slide-label">In-Store Pickup (BOPIS)</div>
+        </div>
+        <div class="slide">
+          <svg viewBox="0 0 64 64" class="slide-icon"><rect x="18" y="28" width="28" height="24" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M24 28v-6a8 8 0 0 1 16 0v6" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="32" cy="40" r="2.5" fill="currentColor"/></svg>
+          <div class="slide-label">Secure Checkout</div>
+        </div>
+        <button class="car-btn car-prev" aria-label="Previous">‹</button>
+        <button class="car-btn car-next" aria-label="Next">›</button>
+        <div class="car-dots">
+          <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      </div>
+      <div class="project-head">
+        <div class="tagrow">
+          <span>Digital Launch</span>
+          <span>E-Commerce</span>
+          <span>Case Study</span>
+        </div>
+        <h3>E-Commerce Platform Launch</h3>
+        <p>Program plan for launching an e-commerce platform for a retail jewelry business, integrated in real time with in-store inventory and POS data — covering platform selection, stakeholder mapping, risk management, budget, communications, and post-launch review.</p>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="num">16 wks</div>
+          <div class="cap">Launched on schedule, within approved budget</div>
+        </div>
+        <div class="stat">
+          <div class="num">0</div>
+          <div class="cap">Inventory oversell incidents in first 60 days</div>
+        </div>
+        <div class="stat">
+          <div class="num">29%</div>
+          <div class="cap">Online orders fulfilled via in-store pickup, month one</div>
+        </div>
+      </div>
+      <div class="project-foot">
+        <a class="btn btn-primary" href="E_Commerce_Platform_Launch_Case_Study.docx">Download Full Case Study</a>
+        <a class="btn btn-ghost" href="mailto:mandadimple17@gmail.com?subject=Let's%20discuss%20your%20project">Discuss this project</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal" id="project-dashboard" style="--accent:var(--sage)">
+      <div class="project-media">
+        <div class="slide active">
+          <svg viewBox="0 0 64 64" class="slide-icon"><line x1="10" y1="52" x2="54" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><rect x="16" y="34" width="8" height="18" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="28" y="24" width="8" height="28" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="40" y="14" width="8" height="38" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
+          <div class="slide-label">Weekly KPI Tracking</div>
+        </div>
+        <div class="slide">
+          <svg viewBox="0 0 64 64" class="slide-icon"><rect x="10" y="12" width="44" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="10" y1="24" x2="54" y2="24" stroke="currentColor" stroke-width="2"/><line x1="10" y1="36" x2="54" y2="36" stroke="currentColor" stroke-width="2"/><line x1="26" y1="12" x2="26" y2="52" stroke="currentColor" stroke-width="2"/><line x1="40" y1="12" x2="40" y2="52" stroke="currentColor" stroke-width="2"/></svg>
+          <div class="slide-label">Consolidated Data Workbook</div>
+        </div>
+        <div class="slide">
+          <svg viewBox="0 0 64 64" class="slide-icon"><circle cx="32" cy="32" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M32 20v12l9 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="slide-label">Report Prep: 3 hrs → 25 min</div>
+        </div>
+        <button class="car-btn car-prev" aria-label="Previous">‹</button>
+        <button class="car-btn car-next" aria-label="Next">›</button>
+        <div class="car-dots">
+          <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      </div>
+      <div class="project-head">
+        <div class="tagrow">
+          <span>Process Improvement</span>
+          <span>Reporting</span>
+          <span>Case Study</span>
+        </div>
+        <h3>Store Performance Reporting Dashboard</h3>
+        <p>A self-led program to design and automate a weekly sales, inventory, and staff-performance dashboard for a retail jewelry store — replacing hours of manual spreadsheet work with a same-day reporting view for leadership.</p>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="num">6 wks</div>
+          <div class="cap">From metric definition to full adoption</div>
+        </div>
+        <div class="stat">
+          <div class="num">&lt;25 min</div>
+          <div class="cap">Weekly report prep time, down from ~3 hours</div>
+        </div>
+        <div class="stat">
+          <div class="num">0</div>
+          <div class="cap">Data errors identified in first month of use</div>
+        </div>
+      </div>
+      <div class="project-foot">
+        <a class="btn btn-primary" href="Store_Performance_Dashboard_Case_Study.docx">Download Full Case Study</a>
+        <a class="btn btn-ghost" href="mailto:mandadimple17@gmail.com?subject=Let's%20discuss%20your%20project">Discuss this project</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal" id="project-onboarding" style="--accent:var(--teal)">
+      <div class="project-media">
+        <div class="slide active">
+          <svg viewBox="0 0 64 64" class="slide-icon"><circle cx="22" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="42" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M10 50c0-8 6-14 12-14s12 6 12 14M30 50c0-8 6-14 12-14s12 6 12 14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <div class="slide-label">New-Hire Journey</div>
+        </div>
+        <div class="slide">
+          <svg viewBox="0 0 64 64" class="slide-icon"><rect x="14" y="10" width="36" height="44" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M22 26l5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="22" y1="41" x2="42" y2="41" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <div class="slide-label">Training Checklist</div>
+        </div>
+        <div class="slide">
+          <svg viewBox="0 0 64 64" class="slide-icon"><circle cx="32" cy="26" r="14" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M32 15l2.6 6.3 6.9.5-5.3 4.6 1.7 6.7-6-3.7-6 3.7 1.7-6.7-5.3-4.6 6.9-.5z" fill="currentColor" stroke="none"/><path d="M24 38l-4 14 12-6 12 6-4-14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
+          <div class="slide-label">Floor-Ready Milestone</div>
+        </div>
+        <button class="car-btn car-prev" aria-label="Previous">‹</button>
+        <button class="car-btn car-next" aria-label="Next">›</button>
+        <div class="car-dots">
+          <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      </div>
+      <div class="project-head">
+        <div class="tagrow">
+          <span>People Ops</span>
+          <span>Training</span>
+          <span>Case Study</span>
+        </div>
+        <h3>Staff Onboarding &amp; Training Program</h3>
+        <p>A self-led program to design and pilot a structured new-hire onboarding curriculum for a retail jewelry store — replacing informal shadow-training with a consistent checklist, schedule, and reference materials.</p>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="num">5 wks</div>
+          <div class="cap">From curriculum design to pilot completion</div>
+        </div>
+        <div class="stat">
+          <div class="num">40%</div>
+          <div class="cap">Reduction in new-hire ramp-up time</div>
+        </div>
+        <div class="stat">
+          <div class="num">100%</div>
+          <div class="cap">Pilot hires completing the full training checklist</div>
+        </div>
+      </div>
+      <div class="project-foot">
+        <a class="btn btn-primary" href="Staff_Onboarding_Training_Case_Study.docx">Download Full Case Study</a>
+        <a class="btn btn-ghost" href="mailto:mandadimple17@gmail.com?subject=Let's%20discuss%20your%20project">Discuss this project</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal" id="project-inventory" style="--accent:var(--sage)">
+      <div class="project-media">
+        <div class="slide active">
+          <svg viewBox="0 0 64 64" class="slide-icon"><rect x="10" y="14" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="36" y="14" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="10" y="32" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="36" y="32" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
+          <div class="slide-label">Category Rotation</div>
+        </div>
+        <div class="slide">
+          <svg viewBox="0 0 64 64" class="slide-icon"><circle cx="28" cy="28" r="14" fill="none" stroke="currentColor" stroke-width="2.5"/><line x1="38" y1="38" x2="50" y2="50" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <div class="slide-label">Discrepancy Check</div>
+        </div>
+        <div class="slide">
+          <svg viewBox="0 0 64 64" class="slide-icon"><path d="M32 10l18 6v14c0 12-8 20-18 24-10-4-18-12-18-24V16z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M24 32l6 6 12-13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="slide-label">Loss Prevention</div>
+        </div>
+        <button class="car-btn car-prev" aria-label="Previous">‹</button>
+        <button class="car-btn car-next" aria-label="Next">›</button>
+        <div class="car-dots">
+          <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      </div>
+      <div class="project-head">
+        <div class="tagrow">
+          <span>Inventory Ops</span>
+          <span>Loss Prevention</span>
+          <span>Case Study</span>
+        </div>
+        <h3>Inventory Audit &amp; Cycle Count Process</h3>
+        <p>A program to design and pilot a rolling cycle-count process for high-value jewelry inventory — replacing a single disruptive annual count with a rotating, category-based audit schedule that catches discrepancies early.</p>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="num">6 wks</div>
+          <div class="cap">To complete first full category rotation</div>
+        </div>
+        <div class="stat">
+          <div class="num">100%</div>
+          <div class="cap">Of inventory categories counted in the pilot</div>
+        </div>
+        <div class="stat">
+          <div class="num">&lt;5 days</div>
+          <div class="cap">Average time to resolve a logged discrepancy</div>
+        </div>
+      </div>
+      <div class="project-foot">
+        <a class="btn btn-primary" href="Inventory_Audit_Cycle_Count_Case_Study.docx">Download Full Case Study</a>
+        <a class="btn btn-ghost" href="mailto:mandadimple17@gmail.com?subject=Let's%20discuss%20your%20project">Discuss this project</a>
+      </div>
+    </div>
+
+    <div class="more-card">
+      More program case studies in progress — check back soon, or reach out for additional work samples.
+    </div>
+  </section>
+
+  <footer id="contact" class="reveal">
+    <div class="eyebrow">Get in touch</div>
+    <h2>Let's talk about a program</h2>
+    <p class="section-intro" style="margin-bottom:0;">Open to Program Manager and Project Manager roles in retail, IT, and operations.</p>
+    <div class="contact-links">
+      <a href="mailto:mandadimple17@gmail.com">mandadimple17@gmail.com</a>
+    </div>
+    <div class="foot-note">© <span id="year"></span> Dimple Manda. Built as part of an ongoing program management portfolio.</div>
+  </footer>
+
+</main>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- Scroll reveal ----
+  var revealTargets = document.querySelectorAll('.reveal, .reveal-stagger');
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealTargets.forEach(function(t){ revealObserver.observe(t); });
+  } else {
+    revealTargets.forEach(function(t){ t.classList.add('visible'); });
+  }
+
+  // ---- Staggered tag entrance delays ----
+  document.querySelectorAll('.reveal-stagger').forEach(function(group){
+    Array.prototype.slice.call(group.children).forEach(function(child, i){
+      child.style.transitionDelay = (i * 35) + 'ms';
+    });
+  });
+
+  // ---- Project card carousels ----
+  document.querySelectorAll('.project-media').forEach(function(media){
+    var slides = Array.prototype.slice.call(media.querySelectorAll('.slide'));
+    var dots = Array.prototype.slice.call(media.querySelectorAll('.dot'));
+    var idx = 0;
+    var timer;
+
+    function show(n){
+      idx = (n + slides.length) % slides.length;
+      slides.forEach(function(s, i){ s.classList.toggle('active', i === idx); });
+      dots.forEach(function(d, i){ d.classList.toggle('active', i === idx); });
+    }
+    function next(){ show(idx + 1); }
+    function prev(){ show(idx - 1); }
+    function startAuto(){ timer = setInterval(next, 4200); }
+    function stopAuto(){ clearInterval(timer); }
+
+    var nextBtn = media.querySelector('.car-next');
+    var prevBtn = media.querySelector('.car-prev');
+    if (nextBtn) nextBtn.addEventListener('click', function(){ next(); stopAuto(); startAuto(); });
+    if (prevBtn) prevBtn.addEventListener('click', function(){ prev(); stopAuto(); startAuto(); });
+    dots.forEach(function(d, i){
+      d.addEventListener('click', function(){ show(i); stopAuto(); startAuto(); });
+    });
+    media.addEventListener('mouseenter', stopAuto);
+    media.addEventListener('mouseleave', startAuto);
+
+    show(0);
+    startAuto();
+  });
+
+  // ---- Skill tag → project scroll + highlight ----
+  document.querySelectorAll('.tag-link[data-target]').forEach(function(tag){
+    tag.setAttribute('tabindex', '0');
+    tag.setAttribute('role', 'button');
+    function go(){
+      var target = document.getElementById(tag.getAttribute('data-target'));
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      target.classList.remove('highlight');
+      // restart animation even if clicked again quickly
+      void target.offsetWidth;
+      target.classList.add('highlight');
+      setTimeout(function(){ target.classList.remove('highlight'); }, 2200);
+    }
+    tag.addEventListener('click', go);
+    tag.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+    });
+  });
+</script>
+
+</body>
+</html>
